@@ -16,25 +16,6 @@ class Question(models.Model):
         verbose_name = "Question"
         verbose_name_plural = "Questions"
     
-    @staticmethod
-    def clean_answer_set(answers):
-        from django.forms import ValidationError
-        from django.utils.translation import ugettext_lazy as _
-        
-        errors = []
-        if len(answers) < 2:
-            errors.append(ValidationError("There should be 2 or more answer options"))
-
-        right_answers_count = 0
-        for i in range(len(answers)):
-            if answers[i].is_right:
-                right_answers_count += 1
-        if right_answers_count != 1:
-            errors.append(ValidationError("There should be only 1 right answer"))
-
-        if errors:
-            raise ValidationError(errors)
-    
 class Answer(models.Model):
     test = models.ForeignKey(
         Question,
