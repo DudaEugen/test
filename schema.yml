@@ -1,0 +1,212 @@
+openapi: 3.0.3
+info:
+  title: Test API
+  version: 1.0.0
+paths:
+  /questions/:
+    get:
+      operationId: questions_list
+      tags:
+      - questions
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuestionList'
+          description: ''
+    post:
+      operationId: questions_create
+      tags:
+      - questions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/QuestionDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuestionDetails'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionDetails'
+          description: ''
+  /questions/{id}/:
+    get:
+      operationId: questions_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Question.
+        required: true
+      tags:
+      - questions
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionDetails'
+          description: ''
+    put:
+      operationId: questions_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Question.
+        required: true
+      tags:
+      - questions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/QuestionDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/QuestionDetails'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionDetails'
+          description: ''
+    patch:
+      operationId: questions_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Question.
+        required: true
+      tags:
+      - questions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedQuestionDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedQuestionDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedQuestionDetails'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionDetails'
+          description: ''
+    delete:
+      operationId: questions_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Question.
+        required: true
+      tags:
+      - questions
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    AnswerOption:
+      type: object
+      properties:
+        text:
+          type: string
+          title: Answer option
+          description: Enter an answer option
+    PatchedQuestionDetails:
+      type: object
+      properties:
+        text:
+          type: string
+          title: Question
+          description: Enter a question text
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerOption'
+    QuestionDetails:
+      type: object
+      properties:
+        text:
+          type: string
+          title: Question
+          description: Enter a question text
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerOption'
+      required:
+      - options
+    QuestionList:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        text:
+          type: string
+          title: Question
+          description: Enter a question text
+      required:
+      - url
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
