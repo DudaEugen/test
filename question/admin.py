@@ -1,13 +1,13 @@
 from django.contrib import admin
-from .forms import AnswerInlineFormset
-from .models import Answer, Question
+from .forms import AnswerOptionInlineFormset
+from .models import AnswerOption, Question
 
-class QuestionAnswerInline(admin.TabularInline):
-    model = Answer
-    formset = AnswerInlineFormset
+class QuestionAnswerOptionInline(admin.TabularInline):
+    model = AnswerOption
+    formset = AnswerOptionInlineFormset
     extra = 0
-    verbose_name = "Answer"
-    verbose_name_plural = "Answers"
+    verbose_name = "Answer option"
+    verbose_name_plural = "Answer options"
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = (
@@ -18,7 +18,7 @@ class QuestionAdmin(admin.ModelAdmin):
         "text",
     )
     inlines = (
-        QuestionAnswerInline,
+        QuestionAnswerOptionInline,
     )
 
 admin.site.register(Question, QuestionAdmin)

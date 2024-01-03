@@ -1,18 +1,18 @@
 from django import forms
-from .models import Answer, Question
+from .models import AnswerOption
 
 
 from django.forms import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-class AnswerInlineFormset(forms.models.BaseInlineFormSet):
+class AnswerOptionInlineFormset(forms.models.BaseInlineFormSet):
     def clean(self):
         answers = []
         for form in self.forms:
             if form.cleaned_data and not form.cleaned_data["DELETE"]:
                 answer_text = form.cleaned_data.get("text")
                 is_right = form.cleaned_data.get("is_right")
-                answers.append(Answer(
+                answers.append(AnswerOption(
                     text=answer_text,
                     is_right=is_right,
                 ))

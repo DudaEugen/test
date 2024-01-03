@@ -16,9 +16,10 @@ class Question(models.Model):
         verbose_name = "Question"
         verbose_name_plural = "Questions"
     
-class Answer(models.Model):
+class AnswerOption(models.Model):
     test = models.ForeignKey(
         Question,
+        related_name='options',
         on_delete=models.CASCADE,
         null=False,
         blank=False,
@@ -44,4 +45,3 @@ class Answer(models.Model):
     class Meta:
         verbose_name = "Answer"
         verbose_name_plural = "Answers"
-        default_related_name = "answer_set"
