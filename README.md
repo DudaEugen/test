@@ -2,14 +2,26 @@
 
 ## dev
 
-    sudo apt update
-    sudo apt install python3.12
-    python3.12 -m venv ./.venv
-        
-        sudo apt-get install python3.12-distutils
-        curl -sS https://bootstrap.pypa.io/get-pip.py | python3.12
-        python3.12 -m pip install opencv-python
-        apt-get install python3.12-dev python3.12-venv
+Activate a virtual env (`.venv` is a folder name):
 
-    source .venv/bin/activate
-    poetry install
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+poetry install
+```
+
+Run migrations:
+
+```bash
+python manage.py migrate
+```
+
+Run server:
+
+```bash
+python manage.py runserver
+```
