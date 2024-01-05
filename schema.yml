@@ -192,16 +192,15 @@ components:
     QuestionList:
       type: object
       properties:
-        url:
-          type: string
-          format: uri
+        id:
+          type: integer
           readOnly: true
         text:
           type: string
           title: Question
           description: Enter a question text
       required:
-      - url
+      - id
   securitySchemes:
     basicAuth:
       type: http
