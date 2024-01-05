@@ -14,7 +14,7 @@ class QuestionDetailsSerializer(serializers.ModelSerializer):
         model = Question
         fields=["text", "options"]
 
-class QuestionListSerializer(serializers.HyperlinkedModelSerializer):
+class QuestionListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields='__all__'
